@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Eventfinder</string>
+
+    <string name="logo_name">Eventfinder \nIndonesia</string>
+    <string name="sport_title">Sport</string>
+    <string name="music_title">Music</string>
+    <string name="exhibition_title">Exhibition</string>
+
+    <!-- Provider -->
+    <string name="content_authority">inforuh.eventfinder</string>
+    <string name="account_type">com.eventfinder</string>
+
+    <!-- Sample -->
+    <string name="sample_category">Category</string>
+    <string name="sample_date">5 Maret 1992</string>
+    <string name="image_description">Event Image</string>
+
+    <!-- Detail -->
+    <string name="ticket_price">Ticket Price :</string>
+    <string name="location_icon">location icon</string>
+    <string name="contact_title">Contact :</string>
+
+    <!-- Maps -->
+    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
+        AIzaSyDkl2Ue5CnHHaGeZftm2cIiaWmJYm9R6KI
+    </string>
+</resources>

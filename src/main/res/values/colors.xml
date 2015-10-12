@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#f9f9fa</color>
+    <color name="black">@android:color/black</color>
+    <color name="grey">#A0A0A0</color>
+    <color name="darker_gray">#505050</color>
+
+    <color name="text_primary">#de000000</color>
+    <color name="text_secondary">#8a000000</color>
+    <color name="text_other">#60000000</color>
+
+    <color name="primary">#cc000d</color>
+    <color name="primary_other">#870000</color>
+    <color name="primary_dark">#11000000</color>
+    <color name="accent">@color/primary</color>
+
+    <color name="item_mask">#88000000</color>
+    <color name="item_mask_detail">#55000000</color>
+</resources>
