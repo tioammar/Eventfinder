@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import inforuh.eventfinder.R;
 import inforuh.eventfinder.io.Event;
@@ -27,7 +28,6 @@ public class DetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private CollapsingToolbarLayout collapsingToolbar;
-//    private TextView eventTitle;
     private TextView eventContent;
     private ImageView eventImage;
     private TextView eventDate;
@@ -62,7 +62,6 @@ public class DetailActivity extends AppCompatActivity
         }
 
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-//        eventTitle = (TextView) findViewById(R.id.event_title_detail);
         eventContent = (TextView) findViewById(R.id.event_content_detail);
         eventImage = (ImageView) findViewById(R.id.event_image_detail);
         eventDate = (TextView) findViewById(R.id.event_date_detail);
@@ -77,7 +76,6 @@ public class DetailActivity extends AppCompatActivity
         eventBarcode = (ImageView) findViewById(R.id.event_barcode);
 
         String title = "Sample Event";
-//        eventTitle.setText(title.toUpperCase());
         collapsingToolbar.setTitle(title);
 
         String content = "Lorem ipsum dolor sit amet, sed vero suscipiantur cu. Corpora eligendi sea ad, mel erat euismod id, dicant feugait sed id. Legimus accusata deterruisset vis an. An sit commune copiosae apeirian, vel quodsi volutpat ne, in sea blandit dignissim. Ei sit delenit imperdiet. Utamur mandamus duo ad, facer cetero scriptorem sea ad. Ea quo vide reprehendunt, omnium theophrastus usu ad, modo lorem ad per.\n" +
@@ -93,26 +91,40 @@ public class DetailActivity extends AppCompatActivity
 
         Glide.with(this)
                 .load("https://pbs.twimg.com/profile_images/462501444977836032/G6h25qnI.jpeg")
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop()
                 .into(eventImage);
 
         String startDate = "5 September";
         String endDate = "6 September";
-        eventDate.setText(startDate + " - " + endDate);
+        CharSequence date = startDate + " - " + endDate;
+        eventDate.setText(date);
 
         String location = "Gedung Mulo, Makassar";
         eventLocation.setText(location);
 
-        eventPrice.setText(getString(R.string.ticket_price).toUpperCase() + " IDR 100.000");
+        CharSequence price = getString(R.string.ticket_price).toUpperCase() + " IDR 100.000";
+        eventPrice.setText(price);
 
-        contactName.setText("Aditya Amirullah");
-        contactAddress.setText("BTN Minasa Upa, Makassar");
-        contactTwitter.setText("Twitter : @tioammar");
-        contactFacebook.setText("Facebook : Aditya Amirullah");
-        contactLine.setText("Line : tioammar");
+        String name = "Aditya Amirullah";
+        contactName.setText(name);
+
+        CharSequence address = "BTN Minasa Upa, Makassar";
+        contactAddress.setText(address);
+
+        CharSequence twitter = "Twitter : @tioammar";
+        contactTwitter.setText(twitter);
+
+        CharSequence facebook = "Facebook : Aditya Amirullah";
+        contactFacebook.setText(facebook);
+
+
+        CharSequence line = "Line : tioammar";
+        contactLine.setText(line);
 
         Glide.with(this)
                 .load("http://cdnqrcgde.s3-eu-west-1.amazonaws.com/wp-content/uploads/2013/11/jpeg.jpg")
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop()
                 .into(eventBarcode);
     }
@@ -140,24 +152,26 @@ public class DetailActivity extends AppCompatActivity
         }
 
         String title = data.getString(Event.TITLE);
-//        eventTitle.setText(data.getString(Event.TITLE).toUpperCase());
         collapsingToolbar.setTitle(title);
 
         eventContent.setText(data.getString(Event.CONTENT));
 
         Glide.with(this)
                 .load(data.getString(Event.IMAGE))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop()
                 .into(eventImage);
 
         String startDate = data.getString(Event.START_DATE);
         String endDate = data.getString(Event.END_DATE);
-        eventDate.setText(startDate + " - " + endDate);
+        String date = startDate + " - " + endDate;
+        eventDate.setText(date);
 
         eventLocation.setText(data.getString(Event.LOCATION));
 
-        eventPrice.setText(getString(R.string.ticket_price).toUpperCase() + " " +
-                data.getString(Event.PRICE).toUpperCase());
+        String price = getString(R.string.ticket_price).toUpperCase() + " " +
+                data.getString(Event.PRICE).toUpperCase();
+        eventPrice.setText(price);
 
         contactName.setText(data.getString(Event.CONTACT_NAME));
         contactAddress.setText(data.getString(Event.CONTACT_ADDRESS));
@@ -167,6 +181,7 @@ public class DetailActivity extends AppCompatActivity
 
         Glide.with(this)
                 .load(data.getString(Event.BARCODE))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop()
                 .into(eventBarcode);
     }
