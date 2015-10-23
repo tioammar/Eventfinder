@@ -61,10 +61,29 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/event_title_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/vertical"
+                android:paddingLeft="@dimen/horizontal"
+                android:paddingStart="@dimen/horizontal"
+                android:paddingRight="@dimen/horizontal"
+                android:paddingEnd="@dimen/horizontal"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                tools:text="Lorem Ipsum dolor Sit Amet"/>
+
+            <TextView
                 android:id="@+id/event_content_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/vertical"
+                android:paddingTop="@dimen/vertical_small"
+                android:paddingLeft="@dimen/horizontal"
+                android:paddingStart="@dimen/horizontal"
+                android:paddingRight="@dimen/horizontal"
+                android:paddingEnd="@dimen/horizontal"
+                android:paddingBottom="@dimen/vertical"
                 android:textColor="@color/text_primary"
                 android:textSize="@dimen/text_small"
                 tools:text="Lorem Ipsum dolor Sit Amet"/>
@@ -219,9 +238,33 @@
                     android:paddingStart="@dimen/horizontal"
                     android:paddingRight="@dimen/horizontal"
                     android:paddingEnd="@dimen/horizontal"
-                    android:layout_marginBottom="@dimen/vertical"
                     android:textSize="@dimen/text_medium"
                     tools:text="Line : @sianu"/>
+
+                <TextView
+                    android:id="@+id/contact_instagram"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:paddingLeft="@dimen/horizontal"
+                    android:paddingStart="@dimen/horizontal"
+                    android:paddingRight="@dimen/horizontal"
+                    android:paddingEnd="@dimen/horizontal"
+                    android:textSize="@dimen/text_medium"
+                    tools:text="Instagram : @sianu"/>
+
+                <TextView
+                    android:id="@+id/contact_path"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:paddingLeft="@dimen/horizontal"
+                    android:paddingStart="@dimen/horizontal"
+                    android:paddingRight="@dimen/horizontal"
+                    android:paddingEnd="@dimen/horizontal"
+                    android:layout_marginBottom="@dimen/vertical"
+                    android:textSize="@dimen/text_medium"
+                    tools:text="Path : @sianu"/>
 
                 <ImageView
                     android:id="@+id/event_barcode"

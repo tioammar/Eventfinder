@@ -47,6 +47,12 @@ public class MusicFragment extends Fragment
     }
 
     @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getLoaderManager().initLoader(0, Bundle.EMPTY, this);
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String selection = Contract.EventColumn.CATEGORY + " = ? ";
         String selectionArgs = "Music";
@@ -72,6 +78,8 @@ public class MusicFragment extends Fragment
 
     @Override
     public void onClickListener(Uri uri) {
-        startActivity(new Intent(getActivity(), DetailActivity.class));
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        intent.setData(uri);
+        startActivity(intent);
     }
 }

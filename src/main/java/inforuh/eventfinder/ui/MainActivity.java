@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import inforuh.eventfinder.R;
+import inforuh.eventfinder.sync.SyncAdapter;
 import inforuh.eventfinder.ui.fragment.ExhibitionFragment;
 import inforuh.eventfinder.ui.fragment.MusicFragment;
 import inforuh.eventfinder.ui.fragment.SportFragment;
@@ -45,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
         setUpViewPager(viewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SyncAdapter.initialize(this);
     }
 
     private void setUpViewPager(ViewPager viewPager) {

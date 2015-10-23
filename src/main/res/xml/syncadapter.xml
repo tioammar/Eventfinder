@@ -4,6 +4,6 @@
     android:contentAuthority="@string/content_authority"
     android:accountType="@string/account_type"
     android:userVisible="false"
-    android:supportsUploading="true"
+    android:supportsUploading="false"
     android:allowParallelSyncs="false"
     android:isAlwaysSyncable="true" />

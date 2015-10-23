@@ -7,12 +7,10 @@
     <string name="exhibition_title">Exhibition</string>
 
     <!-- Provider -->
-    <string name="content_authority">inforuh.eventfinder</string>
-    <string name="account_type">com.eventfinder</string>
+    <string name="content_authority" translatable="false">inforuh.eventfinder</string>
+    <string name="account_type" translatable="false">eventfinder.co.id</string>
 
     <!-- Sample -->
-    <string name="sample_category">Category</string>
-    <string name="sample_date">5 Maret 1992</string>
     <string name="image_description">Event Image</string>
 
     <!-- Detail -->
@@ -24,4 +22,27 @@
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
         AIzaSyDkl2Ue5CnHHaGeZftm2cIiaWmJYm9R6KI
     </string>
+
+    <!-- Month -->
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
+
+    <!-- Date -->
+    <string name="one">1st</string>
+    <string name="two">2nd</string>
+    <string name="three">3rd</string>
+    <string name="twenty_one">21st</string>
+    <string name="twenty_two">22nd</string>
+    <string name="twenty_three">23rd</string>
+    <string name="thirty_one">31st</string>
 </resources>

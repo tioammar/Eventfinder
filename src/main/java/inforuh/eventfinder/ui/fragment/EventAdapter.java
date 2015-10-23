@@ -97,7 +97,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
            int startMonth = startCal.get(Calendar.MONTH);
            int startDateInWeek = startCal.get(Calendar.DAY_OF_MONTH);
            int startYear = startCal.get(Calendar.YEAR);
-           viewHolder.eventDate.setText("");
+
+           String formattedStartDate = Config.formatDate(context, startDateInWeek) + " " +
+                   Config.formatMonth(context, startMonth) + " " + startYear;
+           viewHolder.eventDate.setText(formattedStartDate);
 
            Glide.with(viewHolder.eventImage.getContext())
                    .load(cursor.getString(Event.IMAGE))

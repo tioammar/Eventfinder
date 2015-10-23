@@ -45,8 +45,7 @@
         </service>
 
         <service android:name=".sync.SyncService"
-            android:exported="false"
-            android:process=":sync">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>

@@ -37,8 +37,8 @@ public class Contract {
         public static final String LONGITUDE = "event_longitude";
         public static final String LATITUDE = "event_latitude";
 
-        public static final String CONTACT_NAME = "event_contact_name";
-        public static final String CONTACT_ADDRESS = "event_contact_address";
+//        public static final String CONTACT_NAME = "event_contact_name";
+//        public static final String CONTACT_ADDRESS = "event_contact_address";
         public static final String CONTACT_TWITTER = "event_contact_twitter";
         public static final String CONTACT_FACEBOOK = "event_contact_facebook";
         public static final String CONTACT_LINE = "event_contact_line";

@@ -16,6 +16,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +38,7 @@ public class DetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private CollapsingToolbarLayout collapsingToolbar;
+    private TextView eventTitle;
     private TextView eventContent;
     private ImageView eventImage;
     private TextView eventDate;
@@ -44,7 +50,10 @@ public class DetailActivity extends AppCompatActivity
     private TextView contactTwitter;
     private TextView contactFacebook;
     private TextView contactLine;
+    private TextView contactInstagram;
+    private TextView contactPath;
     private ImageView eventBarcode;
+    private GoogleMap googleMap;
 
     private Uri dataUri;
 
@@ -57,7 +66,7 @@ public class DetailActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        dataUri = Uri.parse(intent.getStringExtra("data_uri"));
+        dataUri = intent.getData();
 
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
@@ -67,6 +76,7 @@ public class DetailActivity extends AppCompatActivity
         }
 
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        eventTitle = (TextView) findViewById(R.id.event_title_detail);
         eventContent = (TextView) findViewById(R.id.event_content_detail);
         eventImage = (ImageView) findViewById(R.id.event_image_detail);
         eventDate = (TextView) findViewById(R.id.event_date_detail);
@@ -78,12 +88,19 @@ public class DetailActivity extends AppCompatActivity
         contactTwitter = (TextView) findViewById(R.id.contact_twitter);
         contactFacebook = (TextView) findViewById(R.id.contact_facebook);
         contactLine = (TextView) findViewById(R.id.contact_line);
+        contactInstagram = (TextView) findViewById(R.id.contact_instagram);
+        contactPath = (TextView) findViewById(R.id.contact_path);
         eventBarcode = (ImageView) findViewById(R.id.event_barcode);
+
+        SupportMapFragment map = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        googleMap = map.getMap();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        googleMap.clear();
         getSupportLoaderManager().initLoader(0, null, this);
     }
 
@@ -103,57 +120,93 @@ public class DetailActivity extends AppCompatActivity
             return;
         }
 
-        String title = data.getString(Event.TITLE);
-        collapsingToolbar.setTitle(title);
+        if (data.moveToFirst()) {
+            String title = data.getString(Event.TITLE);
+            collapsingToolbar.setTitle("");
+            eventTitle.setText(title.toUpperCase());
+            eventContent.setText(data.getString(Event.CONTENT));
 
-        eventContent.setText(data.getString(Event.CONTENT));
+            Glide.with(this)
+                    .load(data.getString(Event.IMAGE))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .centerCrop()
+                    .into(eventImage);
 
-        Glide.with(this)
-                .load(data.getString(Event.IMAGE))
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
-                .into(eventImage);
+            String startDate = data.getString(Event.START_DATE);
+            String endDate = data.getString(Event.END_DATE);
 
-        String startDate = data.getString(Event.START_DATE);
-        String endDate = data.getString(Event.END_DATE);
+            Date startDateFormat = Config.parseDate(startDate, TimeZone.getDefault());
+            Date endDateFormat = Config.parseDate(endDate, TimeZone.getDefault());
 
-        // String startLocalTime = Utility.toLocalTime(startDate);
-        // String endLocalTime = Utility.toLocalTime(endDate);
+            Calendar startCal = Calendar.getInstance();
+            Calendar endCal = Calendar.getInstance();
+            startCal.setTime(startDateFormat);
+            endCal.setTime(endDateFormat);
 
-        Date startDateFormat = Config.parseDate(startDate, TimeZone.getDefault());
-        Date endDateFormat = Config.parseDate(endDate, TimeZone.getDefault());
+            int startMonth = startCal.get(Calendar.MONTH);
+            int startDateInWeek = startCal.get(Calendar.DAY_OF_MONTH);
+            int startYear = startCal.get(Calendar.YEAR);
 
-        Calendar startCal = Calendar.getInstance();
-        Calendar endCal = Calendar.getInstance();
-        startCal.setTime(startDateFormat);
-        endCal.setTime(endDateFormat);
+            int endMonth = endCal.get(Calendar.MONTH);
+            int endDateInWeek = endCal.get(Calendar.DAY_OF_MONTH);
+            int endYear = endCal.get(Calendar.YEAR);
 
-        int startMonth = startCal.get(Calendar.MONTH);
-        int startDateInWeek = startCal.get(Calendar.DAY_OF_MONTH);
-        int startYear = startCal.get(Calendar.YEAR);
+            String formattedStartDate = Config.formatDate(this, startDateInWeek) + " " +
+                    Config.formatMonth(this, startMonth) + " " + startYear;
+            String formattedEndDate = Config.formatDate(this, endDateInWeek) + " " +
+                    Config.formatMonth(this, endMonth) + " " + endYear;
+            String completeDate = formattedStartDate + " - " + formattedEndDate;
+            eventDate.setText(completeDate);
 
-        int endMonth = endCal.get(Calendar.MONTH);
-        int endDateinWeek = endCal.get(Calendar.DAY_OF_MONTH);
-        int endYear = endCal.get(Calendar.YEAR);
-        eventDate.setText("");
+            String location = "Empty";
+            eventLocation.setText(location);
 
-        eventLocation.setText(data.getString(Event.LOCATION));
+            String price = getString(R.string.ticket_price).toUpperCase() + " " +
+                    data.getString(Event.PRICE).toUpperCase();
+            eventPrice.setText(price);
 
-        String price = getString(R.string.ticket_price).toUpperCase() + " " +
-                data.getString(Event.PRICE).toUpperCase();
-        eventPrice.setText(price);
+            String name = "Empty";
+            contactName.setText(name);
 
-        contactName.setText(data.getString(Event.CONTACT_NAME));
-        contactAddress.setText(data.getString(Event.CONTACT_ADDRESS));
-        contactTwitter.setText(data.getString(Event.CONTACT_TWITTER));
-        contactFacebook.setText(data.getString(Event.CONTACT_FACEBOOK));
-        contactLine.setText(data.getString(Event.CONTACT_LINE));
+            String address = "Empty";
+            contactAddress.setText(address);
 
-        Glide.with(this)
-                .load(data.getString(Event.BARCODE))
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
-                .into(eventBarcode);
+            String twitter = "Twitter: " + data.getString(Event.CONTACT_TWITTER);
+            contactTwitter.setText(twitter);
+
+            String facebook = "Facebook: " + data.getString(Event.CONTACT_FACEBOOK);
+            contactFacebook.setText(facebook);
+
+            String line = "Line: " + data.getString(Event.CONTACT_LINE);
+            contactLine.setText(line);
+
+            String instagram = "Instagram: " + data.getString(Event.CONTACT_INSTAGRAM);
+            contactInstagram.setText(instagram);
+
+            String path = "Path: " + data.getString(Event.CONTACT_PATH);
+            contactPath.setText(path);
+
+            Glide.with(this)
+                    .load(data.getString(Event.BARCODE))
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .centerCrop()
+                    .into(eventBarcode);
+
+            if (googleMap != null){
+                setUpEventLocation(data.getDouble(Event.LONGITUDE),
+                        data.getDouble(Event.LATITUDE));
+            }
+        }
+    }
+
+    private void setUpEventLocation(double longitude, double latitude) {
+        if (longitude == 0 && latitude == 0) return;
+        LatLng position = new LatLng(latitude, longitude);
+        MarkerOptions opt = new MarkerOptions()
+                .title("Event location")
+                .position(position);
+        googleMap.addMarker(opt);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 14.0f));
     }
 
     @Override
