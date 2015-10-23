@@ -1,5 +1,7 @@
 package inforuh.eventfinder.io;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,5 +11,6 @@ import java.util.List;
  */
 public class EventsData implements Serializable {
 
-    public List<Event> eventsData;
+	@SerializedName("array")
+    public List<Event> events;
 }

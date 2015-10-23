@@ -21,7 +21,26 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        final String SQL_CREATE_EVENT_TABLE = "";
+        final String SQL_CREATE_EVENT_TABLE = "CREATE TABLE " + Contract.EventColumn.TABLE_NAME + " (" +
+                Contract.EventColumn.ID + " INTEGER PRIMARY KEY, " +
+                Contract.EventColumn.TITLE + " TEXT NOT NULL, " +
+                Contract.EventColumn.CONTENT + " TEXT NOT NULL, " +
+                Contract.EventColumn.START_DATE + " DATE NOT NULL, " +
+                Contract.EventColumn.END_DATE + " DATE NOT NULL, " +
+                Contract.EventColumn.CATEGORY + " TEXT NOT NULL, " +
+                Contract.EventColumn.IMAGE + " TEXT NOT NULL, " +
+                Contract.EventColumn.PRICE + " TEXT NOT NULL, " +
+                Contract.EventColumn.LONGITUDE + " REAL NOT NULL, " +
+                Contract.EventColumn.LATITUDE + " REAL NOT NULL, " +
+                Contract.EventColumn.CONTACT_NAME + " TEXT NOT NULL, " +
+                Contract.EventColumn.CONTACT_ADDRESS + " TEXT NOT NULL, " +
+                Contract.EventColumn.CONTACT_TWITTER + " TEXT NOT NULL, " +
+                Contract.EventColumn.CONTACT_FACEBOOK + " TEXT NOT NULL, " +
+                Contract.EventColumn.CONTACT_LINE + " TEXT NOT NULL, " +
+                Contract.EventColumn.CONTACT_INSTAGRAM + " TEXT NOT NULL, " +
+                Contract.EventColumn.CONTACT_PATH + " TEXT NOT NULL, " +
+                Contract.EventColumn.BARCODE + " TEXT NOT NULL, " +
+                Contract.EventColumn.URL + " TEXT NOT NULL " + " );";
 
         db.execSQL(SQL_CREATE_EVENT_TABLE);
     }

@@ -13,11 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import inforuh.eventfinder.R;
 import inforuh.eventfinder.io.Event;
@@ -42,14 +37,7 @@ public class SportFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        String[] data = {
-                "First Sport Event",
-                "Second Sport Event",
-                "Third Sport Event",
-        };
-
-        List<String> dummyData = new ArrayList<>(Arrays.asList(data));
-        sportAdapter = new EventAdapter(getActivity(), dummyData, this);
+        sportAdapter = new EventAdapter(getActivity(), this);
 
         RecyclerView rv = (RecyclerView)view.findViewById(R.id.event_list);
         rv.setLayoutManager(new LinearLayoutManager(rv.getContext()));
@@ -60,7 +48,7 @@ public class SportFragment extends Fragment
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String selection = Contract.EventColumn.CATEGORY + " = ? ";
-        String selectionArgs = "sport";
+        String selectionArgs = "Sport";
         String sortOrder = Contract.EventColumn.START_DATE + " DESC";
 
         return new CursorLoader(getActivity(),
@@ -73,7 +61,7 @@ public class SportFragment extends Fragment
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data.getCount() < 1) return;
+        if (data == null) return;
         sportAdapter.swapCursor(data);
     }
 

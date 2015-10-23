@@ -17,6 +17,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
+import inforuh.eventfinder.Config;
 import inforuh.eventfinder.R;
 import inforuh.eventfinder.io.Event;
 
@@ -52,7 +57,7 @@ public class DetailActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-//        dataUri = Uri.parse(intent.getStringExtra("data_uri"));
+        dataUri = Uri.parse(intent.getStringExtra("data_uri"));
 
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
@@ -74,65 +79,12 @@ public class DetailActivity extends AppCompatActivity
         contactFacebook = (TextView) findViewById(R.id.contact_facebook);
         contactLine = (TextView) findViewById(R.id.contact_line);
         eventBarcode = (ImageView) findViewById(R.id.event_barcode);
-
-        String title = "Sample Event";
-        collapsingToolbar.setTitle(title);
-
-        String content = "Lorem ipsum dolor sit amet, sed vero suscipiantur cu. Corpora eligendi sea ad, mel erat euismod id, dicant feugait sed id. Legimus accusata deterruisset vis an. An sit commune copiosae apeirian, vel quodsi volutpat ne, in sea blandit dignissim. Ei sit delenit imperdiet. Utamur mandamus duo ad, facer cetero scriptorem sea ad. Ea quo vide reprehendunt, omnium theophrastus usu ad, modo lorem ad per.\n" +
-                "\n" +
-                "Sapientem voluptaria definitionem ei eam, eos at soluta indoctum. Case similique eos no. Possim mentitum scripserit id sed, in gloriatur dissentias per, suas dolorem vivendo mea no. Pro ut legere theophrastus, usu stet nibh id.\n" +
-                "\n" +
-                "Eligendi suavitate te eos, ex stet essent sapientem eam, cu facer alterum alienum sea. Illud necessitatibus an vim, sit ei dicit tritani tibique. Id doctus aliquip sea, at mea exerci lobortis. Debet prompta reformidans ei eos, cu adipiscing constituam sed, pri eu inermis mentitum.\n" +
-                "\n" +
-                "Cu malorum pertinacia abhorreant sea. Cu vel saperet accumsan dissentias, disputationi definitiones et mei, patrioque repudiandae eu vim. Has interesset neglegentur consequuntur eu, elit torquatos ad vel, nec velit qualisque te. Id qui quodsi accumsan electram, per delenit invenire disputando id. Cum consequat voluptatum in.\n" +
-                "\n" +
-                "Per ut unum movet, graeci timeam ne vim. Ad duo adhuc omnium sensibus, ex vim quis alii aliquam, mei in unum quidam praesent. Ne ignota habemus ullamcorper pri, ullum apeirian verterem an eam, labitur impedit usu ad. Pri cu offendit scribentur mediocritatem, cu odio harum his, ut quodsi malorum has. Ex vivendo appetere eum. Mea ex enim posse cetero.";
-        eventContent.setText(content);
-
-        Glide.with(this)
-                .load("https://pbs.twimg.com/profile_images/462501444977836032/G6h25qnI.jpeg")
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
-                .into(eventImage);
-
-        String startDate = "5 September";
-        String endDate = "6 September";
-        CharSequence date = startDate + " - " + endDate;
-        eventDate.setText(date);
-
-        String location = "Gedung Mulo, Makassar";
-        eventLocation.setText(location);
-
-        CharSequence price = getString(R.string.ticket_price).toUpperCase() + " IDR 100.000";
-        eventPrice.setText(price);
-
-        String name = "Aditya Amirullah";
-        contactName.setText(name);
-
-        CharSequence address = "BTN Minasa Upa, Makassar";
-        contactAddress.setText(address);
-
-        CharSequence twitter = "Twitter : @tioammar";
-        contactTwitter.setText(twitter);
-
-        CharSequence facebook = "Facebook : Aditya Amirullah";
-        contactFacebook.setText(facebook);
-
-
-        CharSequence line = "Line : tioammar";
-        contactLine.setText(line);
-
-        Glide.with(this)
-                .load("http://cdnqrcgde.s3-eu-west-1.amazonaws.com/wp-content/uploads/2013/11/jpeg.jpg")
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
-                .into(eventBarcode);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        getSupportLoaderManager().initLoader(0, null, this);
+        getSupportLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -164,8 +116,26 @@ public class DetailActivity extends AppCompatActivity
 
         String startDate = data.getString(Event.START_DATE);
         String endDate = data.getString(Event.END_DATE);
-        String date = startDate + " - " + endDate;
-        eventDate.setText(date);
+
+        // String startLocalTime = Utility.toLocalTime(startDate);
+        // String endLocalTime = Utility.toLocalTime(endDate);
+
+        Date startDateFormat = Config.parseDate(startDate, TimeZone.getDefault());
+        Date endDateFormat = Config.parseDate(endDate, TimeZone.getDefault());
+
+        Calendar startCal = Calendar.getInstance();
+        Calendar endCal = Calendar.getInstance();
+        startCal.setTime(startDateFormat);
+        endCal.setTime(endDateFormat);
+
+        int startMonth = startCal.get(Calendar.MONTH);
+        int startDateInWeek = startCal.get(Calendar.DAY_OF_MONTH);
+        int startYear = startCal.get(Calendar.YEAR);
+
+        int endMonth = endCal.get(Calendar.MONTH);
+        int endDateinWeek = endCal.get(Calendar.DAY_OF_MONTH);
+        int endYear = endCal.get(Calendar.YEAR);
+        eventDate.setText("");
 
         eventLocation.setText(data.getString(Event.LOCATION));
 

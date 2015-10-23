@@ -13,10 +13,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
+import inforuh.eventfinder.Config;
 import inforuh.eventfinder.R;
 import inforuh.eventfinder.io.Event;
+import inforuh.eventfinder.provider.Contract;
 
 /**
  * Created by tioammar
@@ -30,13 +34,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     private Cursor cursor;
     private Context context;
-    private List<String> data;
     private Listener listener;
 
-    public EventAdapter(Context context, List<String> data, Listener listener) {
+    public EventAdapter(Context context, Listener listener) {
         // constructor
         this.context = context;
-        this.data = data;
         this.listener = listener;
     }
 
@@ -61,16 +63,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-//            cursor.moveToPosition(position);
-//
-//            int columnIndex = cursor.getColumnIndex(Contract.EventColumn.ID);
-//            final int eventId = cursor.getInt(columnIndex);
-//
-//            listener.onClickListener(Contract.EventColumn.buildEventUri(
-//                    Integer.toString(eventId)));
+            cursor.moveToPosition(position);
+            final int eventId = cursor.getInt(Event.ID);
 
-            // testing
-            listener.onClickListener(null);
+            listener.onClickListener(Contract.EventColumn.buildEventUri(
+                    Integer.toString(eventId)));
         }
     }
 
@@ -88,41 +85,32 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder viewHolder, int i) {
-//        cursor.moveToPosition(i);
+       if (cursor.moveToPosition(i)) {
+           viewHolder.eventCategory.setText(cursor.getString(Event.CATEGORY).toUpperCase());
+           viewHolder.eventTitle.setText(cursor.getString(Event.TITLE).toUpperCase());
 
-        String category = context.getString(R.string.sample_category);
+           String startDate = cursor.getString(Event.START_DATE);
+           Date startDateFormat = Config.parseDate(startDate, TimeZone.getDefault());
+           Calendar startCal = Calendar.getInstance();
+           startCal.setTime(startDateFormat);
 
-        viewHolder.eventCategory.setText(category.toUpperCase());
-        viewHolder.eventTitle.setText(data.get(i).toUpperCase());
-        viewHolder.eventDate.setText(R.string.sample_date);
+           int startMonth = startCal.get(Calendar.MONTH);
+           int startDateInWeek = startCal.get(Calendar.DAY_OF_MONTH);
+           int startYear = startCal.get(Calendar.YEAR);
+           viewHolder.eventDate.setText("");
 
-        Glide.with(viewHolder.eventImage.getContext())
-                .load("https://pbs.twimg.com/profile_images/462501444977836032/G6h25qnI.jpeg")
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(viewHolder.eventImage);
-        viewHolder.eventImage.setContentDescription(data.get(i));
-
-//        String category = cursor.getString(Event.CATEGORY);
-//
-//        viewHolder.eventCategory.setText(category.toUpperCase());
-//        viewHolder.eventTitle.setText(cursor.getString(Event.TITLE).toUpperCase());
-//        viewHolder.eventDate.setText(cursor.getString(Event.START_DATE).toUpperCase());
-//
-//        Glide.with(viewHolder.eventImage.getContext())
-//                .load(cursor.getString(Event.IMAGE))
-//                .centerCrop()
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(viewHolder.eventImage);
-//        viewHolder.eventImage.setContentDescription(cursor.getString(Event.TITLE));
+           Glide.with(viewHolder.eventImage.getContext())
+                   .load(cursor.getString(Event.IMAGE))
+                   .centerCrop()
+                   .diskCacheStrategy(DiskCacheStrategy.ALL)
+                   .into(viewHolder.eventImage);
+           viewHolder.eventImage.setContentDescription(cursor.getString(Event.TITLE));
+       }
     }
 
     @Override
     public int getItemCount() {
-        if (data == null) {
-            return 0;
-        }
-        return data.size();
+        return cursor == null ? 0 : cursor.getCount();
     }
 
     public void swapCursor(Cursor c){
