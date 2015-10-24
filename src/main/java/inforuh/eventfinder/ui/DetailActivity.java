@@ -123,7 +123,7 @@ public class DetailActivity extends AppCompatActivity
         if (data.moveToFirst()) {
             String title = data.getString(Event.TITLE);
             collapsingToolbar.setTitle("");
-            eventTitle.setText(title.toUpperCase());
+            eventTitle.setText(title);
             eventContent.setText(data.getString(Event.CONTENT));
 
             Glide.with(this)
@@ -158,17 +158,17 @@ public class DetailActivity extends AppCompatActivity
             String completeDate = formattedStartDate + " - " + formattedEndDate;
             eventDate.setText(completeDate);
 
-            String location = "Empty";
+            String location = "Makassar, Indonesia";
             eventLocation.setText(location);
 
             String price = getString(R.string.ticket_price).toUpperCase() + " " +
                     data.getString(Event.PRICE).toUpperCase();
             eventPrice.setText(price);
 
-            String name = "Empty";
+            String name = "Event Finder";
             contactName.setText(name);
 
-            String address = "Empty";
+            String address = "Makassar, Indonesia";
             contactAddress.setText(address);
 
             String twitter = "Twitter: " + data.getString(Event.CONTACT_TWITTER);

@@ -1,4 +1,7 @@
 <resources>
+    <dimen name="vertical_large">48dp</dimen>
+    <dimen name="horizontal_large">48dp</dimen>
+
     <dimen name="horizontal">16dp</dimen>
     <dimen name="vertical">16dp</dimen>
 

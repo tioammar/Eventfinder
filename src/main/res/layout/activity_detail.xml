@@ -20,11 +20,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:collapsedTitleTextAppearance="@style/TitleText.Collapsed"
-            app:expandedTitleTextAppearance="@style/TitleText.Expanded"
-            app:expandedTitleMarginStart="48dp"
-            app:expandedTitleMarginEnd="64dp">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/event_image_detail"
@@ -39,6 +35,23 @@
                 android:layout_height="match_parent"
                 android:background="@color/item_mask_detail"
                 app:layout_collapseMode="parallax"/>
+
+            <TextView
+                android:id="@+id/event_title_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/vertical"
+                android:layout_marginLeft="@dimen/vertical_large"
+                android:layout_marginStart="@dimen/vertical_large"
+                android:layout_marginEnd="@dimen/vertical_large"
+                android:layout_marginRight="@dimen/vertical_large"
+                android:layout_marginBottom="@dimen/vertical"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_large"
+                android:layout_gravity="bottom"
+                android:maxLines="2"
+                app:layout_collapseMode="parallax"
+                tools:text="Lorem Ipsum dolor Sit Amet"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detail_toolbar"
@@ -61,7 +74,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/event_title_detail"
+                android:id="@+id/event_content_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/vertical"
@@ -69,23 +82,9 @@
                 android:paddingStart="@dimen/horizontal"
                 android:paddingRight="@dimen/horizontal"
                 android:paddingEnd="@dimen/horizontal"
-                android:textColor="@color/text_primary"
-                android:textSize="@dimen/text_medium"
-                android:textStyle="bold"
-                tools:text="Lorem Ipsum dolor Sit Amet"/>
-
-            <TextView
-                android:id="@+id/event_content_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/vertical_small"
-                android:paddingLeft="@dimen/horizontal"
-                android:paddingStart="@dimen/horizontal"
-                android:paddingRight="@dimen/horizontal"
-                android:paddingEnd="@dimen/horizontal"
                 android:paddingBottom="@dimen/vertical"
                 android:textColor="@color/text_primary"
-                android:textSize="@dimen/text_small"
+                android:textSize="@dimen/text_medium"
                 tools:text="Lorem Ipsum dolor Sit Amet"/>
 
             <LinearLayout
