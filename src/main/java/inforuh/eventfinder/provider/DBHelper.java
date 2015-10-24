@@ -46,10 +46,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 Contract.EventColumn.CATEGORY + " TEXT NOT NULL, " +
                 Contract.EventColumn.IMAGE + " TEXT NOT NULL, " +
                 Contract.EventColumn.PRICE + " TEXT NOT NULL, " +
+                Contract.EventColumn.LOCATION + " TEXT NOT NULL, " +
                 Contract.EventColumn.LONGITUDE + " REAL NOT NULL, " +
                 Contract.EventColumn.LATITUDE + " REAL NOT NULL, " +
-//                Contract.EventColumn.CONTACT_NAME + " TEXT NOT NULL, " +
-//                Contract.EventColumn.CONTACT_ADDRESS + " TEXT NOT NULL, " +
+                Contract.EventColumn.MAP_ZOOM + " REAL NOT NULL, " +
+                Contract.EventColumn.ORGANIZER + " TEXT NOT NULL, " +
+                Contract.EventColumn.CONTACT_MAIN + " TEXT NOT NULL, " +
                 Contract.EventColumn.CONTACT_TWITTER + " TEXT NOT NULL, " +
                 Contract.EventColumn.CONTACT_FACEBOOK + " TEXT NOT NULL, " +
                 Contract.EventColumn.CONTACT_LINE + " TEXT NOT NULL, " +

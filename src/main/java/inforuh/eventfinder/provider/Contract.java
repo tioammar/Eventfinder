@@ -49,12 +49,10 @@ public class Contract {
         public static final String CATEGORY = "event_category";
         public static final String IMAGE = "event_image";
         public static final String PRICE = "event_price";
-//        public static final String LOCATION = "event_location";
         public static final String LONGITUDE = "event_longitude";
         public static final String LATITUDE = "event_latitude";
 
-//        public static final String CONTACT_NAME = "event_contact_name";
-//        public static final String CONTACT_ADDRESS = "event_contact_address";
+        public static final String CONTACT_MAIN = "event_contact_main";
         public static final String CONTACT_TWITTER = "event_contact_twitter";
         public static final String CONTACT_FACEBOOK = "event_contact_facebook";
         public static final String CONTACT_LINE = "event_contact_line";
@@ -62,6 +60,9 @@ public class Contract {
         public static final String CONTACT_PATH = "event_contact_path";
         public static final String BARCODE = "event_barcode";
         public static final String URL = "event_url";
+        public static final String LOCATION = "event_location";
+        public static final String MAP_ZOOM = "event_map_zoom";
+        public static final String ORGANIZER = "event_organizer";
 
         public static Uri buildEventUri(String id){
             return CONTENT_URI.buildUpon().appendPath(id).build();

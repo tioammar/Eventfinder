@@ -43,6 +43,9 @@ public class Event implements Serializable {
     @SerializedName("arPict") public String picture;
     @SerializedName("arTicketPrice") public String price;
     @SerializedName("arURL") public String url;
+    @SerializedName("arContact") public String contact;
+    @SerializedName("arOrganizer") public String organizer;
+    @SerializedName("arEventLocation") public String location;
     @SerializedName("catName") public String category;
     @SerializedName("amName") public String admin;
     @SerializedName("mapLongitude") public double longitude;
@@ -64,8 +67,7 @@ public class Event implements Serializable {
             Contract.EventColumn.LONGITUDE,
             Contract.EventColumn.LATITUDE,
             Contract.EventColumn.PRICE,
-//            Contract.EventColumn.CONTACT_NAME,
-//            Contract.EventColumn.CONTACT_ADDRESS,
+            Contract.EventColumn.CONTACT_MAIN,
             Contract.EventColumn.CONTACT_TWITTER,
             Contract.EventColumn.CONTACT_FACEBOOK,
             Contract.EventColumn.CONTACT_LINE,
@@ -73,8 +75,10 @@ public class Event implements Serializable {
             Contract.EventColumn.CONTACT_PATH,
             Contract.EventColumn.BARCODE,
             Contract.EventColumn.CATEGORY,
-            Contract.EventColumn.URL
-//            Contract.EventColumn.LOCATION
+            Contract.EventColumn.URL,
+            Contract.EventColumn.LOCATION,
+            Contract.EventColumn.MAP_ZOOM,
+            Contract.EventColumn.ORGANIZER
     };
 
     public static final int ID = 0;
@@ -86,26 +90,16 @@ public class Event implements Serializable {
     public static final int LONGITUDE = 6;
     public static final int LATITUDE = 7;
     public static final int PRICE = 8;
-//    public static final int CONTACT_NAME = 9;
-//    public static final int CONTACT_ADDRESS = 10;
-//    public static final int CONTACT_TWITTER = 11;
-//    public static final int CONTACT_FACEBOOK = 12;
-//    public static final int CONTACT_LINE = 13;
-//    public static final int CONTACT_INSTAGRAM = 14;
-//    public static final int CONTACT_PATH = 15;
-//    public static final int BARCODE = 16;
-//    public static final int CATEGORY = 17;
-//    public static final int URL = 18;
-//    public static final int LOCATION = 19;
-//    public static final int CONTACT_NAME = 9;
-//    public static final int CONTACT_ADDRESS = 10;
-    public static final int CONTACT_TWITTER = 9;
-    public static final int CONTACT_FACEBOOK = 10;
-    public static final int CONTACT_LINE = 11;
-    public static final int CONTACT_INSTAGRAM = 12;
-    public static final int CONTACT_PATH = 13;
-    public static final int BARCODE = 14;
-    public static final int CATEGORY = 15;
-    public static final int URL = 16;
-//    public static final int LOCATION = 17;
+    public static final int CONTACT_MAIN = 9;
+    public static final int CONTACT_TWITTER = 10;
+    public static final int CONTACT_FACEBOOK = 11;
+    public static final int CONTACT_LINE = 12;
+    public static final int CONTACT_INSTAGRAM = 13;
+    public static final int CONTACT_PATH = 14;
+    public static final int BARCODE = 15;
+    public static final int CATEGORY = 16;
+    public static final int URL = 17;
+    public static final int LOCATION = 18;
+    public static final int MAP_ZOOM = 19;
+    public static final int ORGANIZER = 20;
 }

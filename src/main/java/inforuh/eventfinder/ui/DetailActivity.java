@@ -27,6 +27,9 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,11 +65,13 @@ public class DetailActivity extends AppCompatActivity
     private TextView eventLocation;
 
     private TextView contactName;
-    private TextView contactAddress;
+    private TextView contactMain;
     private TextView contactTwitter;
     private TextView contactFacebook;
     private TextView contactLine;
     private TextView contactInstagram;
+    private String shareMessage;
+
     private TextView contactPath;
     private ImageView eventBarcode;
     private GoogleMap googleMap;
@@ -100,7 +105,7 @@ public class DetailActivity extends AppCompatActivity
         eventLocation = (TextView) findViewById(R.id.event_location_detail);
 
         contactName = (TextView) findViewById(R.id.contact_name);
-        contactAddress = (TextView) findViewById(R.id.contact_address);
+        contactMain = (TextView) findViewById(R.id.contact_main);
         contactTwitter = (TextView) findViewById(R.id.contact_twitter);
         contactFacebook = (TextView) findViewById(R.id.contact_facebook);
         contactLine = (TextView) findViewById(R.id.contact_line);
@@ -114,10 +119,35 @@ public class DetailActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        getSupportLoaderManager().initLoader(0, null, this);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         googleMap.clear();
-        getSupportLoaderManager().initLoader(0, null, this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        if (shareMessage != null) createMenu(menu, shareMessage);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void createMenu(Menu menu, String message){
+        MenuItem item = menu.findItem(R.id.action_share);
+        item.setIntent(createShareIntent(message));
+    }
+
+    private Intent createShareIntent(String message) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        return intent;
     }
 
     @Override
@@ -140,7 +170,7 @@ public class DetailActivity extends AppCompatActivity
             String title = data.getString(Event.TITLE);
             collapsingToolbar.setTitle("");
             eventTitle.setText(title);
-            eventContent.setText(data.getString(Event.CONTENT));
+            eventContent.setText(Html.fromHtml(data.getString(Event.CONTENT)));
 
             Glide.with(this)
                     .load(data.getString(Event.IMAGE))
@@ -174,18 +204,18 @@ public class DetailActivity extends AppCompatActivity
             String completeDate = formattedStartDate + " - " + formattedEndDate;
             eventDate.setText(completeDate);
 
-            String location = "Makassar, Indonesia";
+            String location = data.getString(Event.LOCATION);
             eventLocation.setText(location);
 
             String price = getString(R.string.ticket_price).toUpperCase() + " " +
                     data.getString(Event.PRICE).toUpperCase();
             eventPrice.setText(price);
 
-            String name = "Event Finder";
+            String name = data.getString(Event.ORGANIZER);
             contactName.setText(name);
 
-            String address = "Makassar, Indonesia";
-            contactAddress.setText(address);
+            String contact = data.getString(Event.CONTACT_MAIN);
+            contactMain.setText(contact);
 
             String twitter = "Twitter: " + data.getString(Event.CONTACT_TWITTER);
             contactTwitter.setText(twitter);
@@ -202,6 +232,9 @@ public class DetailActivity extends AppCompatActivity
             String path = "Path: " + data.getString(Event.CONTACT_PATH);
             contactPath.setText(path);
 
+            String url = data.getString(Event.URL);
+            shareMessage = title + ", " + completeDate + ", " + url + " #eventfinderid";
+
             Glide.with(this)
                     .load(data.getString(Event.BARCODE))
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -210,19 +243,19 @@ public class DetailActivity extends AppCompatActivity
 
             if (googleMap != null){
                 setUpEventLocation(data.getDouble(Event.LONGITUDE),
-                        data.getDouble(Event.LATITUDE));
+                        data.getDouble(Event.LATITUDE), data.getFloat(Event.MAP_ZOOM));
             }
         }
     }
 
-    private void setUpEventLocation(double longitude, double latitude) {
+    private void setUpEventLocation(double longitude, double latitude, float zoom) {
         if (longitude == 0 && latitude == 0) return;
         LatLng position = new LatLng(latitude, longitude);
         MarkerOptions opt = new MarkerOptions()
                 .title("Event location")
                 .position(position);
         googleMap.addMarker(opt);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 14.0f));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom));
     }
 
     @Override

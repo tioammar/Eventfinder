@@ -151,10 +151,14 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter implements Callback
             ev.put(Contract.EventColumn.END_DATE, event.endDate);
             ev.put(Contract.EventColumn.LONGITUDE, event.longitude);
             ev.put(Contract.EventColumn.LATITUDE, event.latitude);
+            ev.put(Contract.EventColumn.LOCATION, event.location);
+            ev.put(Contract.EventColumn.MAP_ZOOM, event.zoom);
             ev.put(Contract.EventColumn.IMAGE, event.picture);
             ev.put(Contract.EventColumn.BARCODE, event.barcode);
             ev.put(Contract.EventColumn.PRICE, event.price);
             ev.put(Contract.EventColumn.URL, event.url);
+            ev.put(Contract.EventColumn.ORGANIZER, event.organizer);
+            ev.put(Contract.EventColumn.CONTACT_MAIN, event.contact);
             ev.put(Contract.EventColumn.CONTACT_TWITTER, event.twitter);
             ev.put(Contract.EventColumn.CONTACT_FACEBOOK, event.facebook);
             ev.put(Contract.EventColumn.CONTACT_LINE, event.line);

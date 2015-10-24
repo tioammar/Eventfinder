@@ -16,6 +16,7 @@
 
 package inforuh.eventfinder.ui;
 
+import android.os.PersistableBundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -38,6 +39,10 @@ import inforuh.eventfinder.ui.fragment.SportFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAB_POSITION = "tab_position";
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,15 +58,22 @@ public class MainActivity extends AppCompatActivity {
             String title = getString(R.string.logo_name).toUpperCase();
             titleView.setText(title);
         }
-        ViewPager viewPager = (ViewPager) findViewById(R.id.main_layout);
+        viewPager = (ViewPager) findViewById(R.id.main_layout);
 
         if (viewPager == null){
             return;
         }
 
         setUpViewPager(viewPager);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab);
+        tabLayout = (TabLayout) findViewById(R.id.tab);
         tabLayout.setupWithViewPager(viewPager);
+
+        if (savedInstanceState != null){
+            int lastPosition = savedInstanceState.getInt(TAB_POSITION, 0);
+            if (lastPosition != 0){
+                viewPager.setCurrentItem(lastPosition);
+            }
+        }
     }
 
     @Override
@@ -76,6 +88,18 @@ public class MainActivity extends AppCompatActivity {
         adapter.add(new ExhibitionFragment(), getString(R.string.exhibition_title));
         adapter.add(new SportFragment(), getString(R.string.sport_title));
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putInt(TAB_POSITION, tabLayout.getSelectedTabPosition());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        viewPager.setCurrentItem(savedInstanceState.getInt(TAB_POSITION));
     }
 
     static class Adapter extends FragmentPagerAdapter {
