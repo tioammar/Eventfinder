@@ -212,7 +212,6 @@ public class DetailActivity extends AppCompatActivity
                 String formattedEndDate = Config.formatDate(this, endDateInWeek) + " " +
                         Config.formatMonth(this, endMonth) + " " + endYear;
                 completeDate = formattedStartDate + " - " + formattedEndDate;
-                eventDate.setText(completeDate);
             }
             eventDate.setText(completeDate);
 
