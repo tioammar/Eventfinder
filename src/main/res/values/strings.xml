@@ -17,10 +17,11 @@
 <resources>
     <string name="app_name">Eventfinder</string>
 
-    <string name="logo_name">Eventfinder \nIndonesia</string>
-    <string name="sport_title">Sport</string>
-    <string name="music_title">Music</string>
-    <string name="exhibition_title">Exhibition</string>
+    <string name="logo_name" translatable="false">Eventfinder \nIndonesia</string>
+    <string name="sport_title" translatable="false">Sport</string>
+    <string name="music_title" translatable="false">Music</string>
+    <string name="exhibition_title" translatable="false">Exhibition</string>
+    <string name="action_share">Share</string>
 
     <!-- Provider -->
     <string name="content_authority" translatable="false">inforuh.eventfinder</string>
@@ -61,5 +62,4 @@
     <string name="twenty_two">22nd</string>
     <string name="twenty_three">23rd</string>
     <string name="thirty_one">31st</string>
-    <string name="action_share">Share</string>
 </resources>

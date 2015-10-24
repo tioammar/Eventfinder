@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2015 Aditya Amirullah. All rights reserved.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+ -->
+
+<resources>
+    <string name="app_name">Eventfinder</string>
+
+    <!-- Bulan -->
+    <string name="april">April</string>
+    <string name="august">Agustus</string>
+    <string name="december">Desember</string>
+    <string name="february">Februari</string>
+    <string name="january">Januari</string>
+    <string name="july">Juli</string>
+    <string name="june">Juni</string>
+    <string name="march">Maret</string>
+    <string name="may">Mei</string>
+    <string name="november">Nopember</string>
+    <string name="october">Oktober</string>
+    <string name="september">September</string>
+
+    <!-- Tanggal-->
+    <string name="one">1</string>
+    <string name="twenty_one">21</string>
+    <string name="twenty_three">23</string>
+    <string name="twenty_two">22</string>
+    <string name="two">2</string>
+    <string name="thirty_one">31</string>
+    <string name="three">3</string>
+
+    <!-- Detail -->
+    <string name="ticket_price">Harga Tiket :</string>
+    <string name="contact_title">Kontak :</string>
+    <string name="location_icon">Ikon Lokasi</string>
+    <string name="action_share">Bagikan</string>
+    <string name="image_description">Foto Event</string>
+</resources>

@@ -159,6 +159,7 @@
                         android:layout_toRightOf="@id/location_icon"
                         android:layout_toEndOf="@id/location_icon"
                         android:textColor="@android:color/white"
+                        android:textSize="@dimen/text_medium"
                         android:textStyle="bold"
                         tools:text="Gedung Mulo, Makassar"/>
                 </RelativeLayout>

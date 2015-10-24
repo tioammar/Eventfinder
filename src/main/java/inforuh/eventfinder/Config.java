@@ -54,7 +54,17 @@ public class Config {
             case 22: return context.getString(R.string.twenty_two);
             case 23: return context.getString(R.string.twenty_three);
             case 31: return context.getString(R.string.thirty_one);
-            default: return date + "th";
+            default:{
+                if (context.getResources().getConfiguration()
+                        .locale.getDisplayName().equals(Locale.US.getDisplayName()) ||
+                        context.getResources().getConfiguration()
+                                .locale.getDisplayName().equals(Locale.UK.getDisplayName()) ||
+                        context.getResources().getConfiguration()
+                                .locale.getDisplayName().equals(Locale.ENGLISH.getDisplayName())){
+                    return date + "th";
+                }
+                else return Integer.toString(date);
+            }
         }
     }
 

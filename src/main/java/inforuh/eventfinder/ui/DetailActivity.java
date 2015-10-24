@@ -43,6 +43,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import inforuh.eventfinder.Config;
@@ -197,11 +198,22 @@ public class DetailActivity extends AppCompatActivity
             int endDateInWeek = endCal.get(Calendar.DAY_OF_MONTH);
             int endYear = endCal.get(Calendar.YEAR);
 
-            String formattedStartDate = Config.formatDate(this, startDateInWeek) + " " +
-                    Config.formatMonth(this, startMonth) + " " + startYear;
-            String formattedEndDate = Config.formatDate(this, endDateInWeek) + " " +
-                    Config.formatMonth(this, endMonth) + " " + endYear;
-            String completeDate = formattedStartDate + " - " + formattedEndDate;
+            String completeDate;
+            if (getResources().getConfiguration().locale.getDisplayName()
+                    .equals(Locale.US.getDisplayName())) {
+                String formattedStartDate = Config.formatMonth(this, startMonth) + " " +
+                        Config.formatDate(this, startDateInWeek) + ", " + startYear;
+                String formattedEndDate = Config.formatMonth(this, endMonth) + " " +
+                        Config.formatDate(this, endDateInWeek) + ", " + endYear;
+                completeDate = formattedStartDate + " - " + formattedEndDate;
+            } else {
+                String formattedStartDate = Config.formatDate(this, startDateInWeek) + " " +
+                        Config.formatMonth(this, startMonth) + " " + startYear;
+                String formattedEndDate = Config.formatDate(this, endDateInWeek) + " " +
+                        Config.formatMonth(this, endMonth) + " " + endYear;
+                completeDate = formattedStartDate + " - " + formattedEndDate;
+                eventDate.setText(completeDate);
+            }
             eventDate.setText(completeDate);
 
             String location = data.getString(Event.LOCATION);

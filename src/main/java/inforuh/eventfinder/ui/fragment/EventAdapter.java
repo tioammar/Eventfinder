@@ -31,6 +31,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import inforuh.eventfinder.Config;
@@ -114,8 +115,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
            int startDateInWeek = startCal.get(Calendar.DAY_OF_MONTH);
            int startYear = startCal.get(Calendar.YEAR);
 
-           String formattedStartDate = Config.formatDate(context, startDateInWeek) + " " +
-                   Config.formatMonth(context, startMonth) + " " + startYear;
+           String formattedStartDate;
+           if (context.getResources().getConfiguration().locale.getDisplayName()
+                   .equals(Locale.US.getDisplayName())) {
+               formattedStartDate = Config.formatMonth(context, startMonth) + " " +
+                       Config.formatDate(context, startDateInWeek) + ", " + startYear;
+           } else {
+               formattedStartDate = Config.formatDate(context, startDateInWeek) + " " +
+                       Config.formatMonth(context, startMonth) + " " + startYear;
+           }
            viewHolder.eventDate.setText(formattedStartDate);
 
            Glide.with(viewHolder.eventImage.getContext())
