@@ -33,9 +33,7 @@ import java.util.List;
 
 import inforuh.eventfinder.R;
 import inforuh.eventfinder.sync.SyncAdapter;
-import inforuh.eventfinder.ui.fragment.ExhibitionFragment;
-import inforuh.eventfinder.ui.fragment.MusicFragment;
-import inforuh.eventfinder.ui.fragment.SportFragment;
+import inforuh.eventfinder.ui.fragment.PagerFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.add(new MusicFragment(), getString(R.string.music_title));
-        adapter.add(new ExhibitionFragment(), getString(R.string.exhibition_title));
-        adapter.add(new SportFragment(), getString(R.string.sport_title));
+        adapter.add(new PagerFragment(), getString(R.string.music_title), "Music");
+        adapter.add(new PagerFragment(), getString(R.string.exhibition_title), "Exhibition");
+        adapter.add(new PagerFragment(), getString(R.string.sport_title), "Sport");
         viewPager.setAdapter(adapter);
     }
 
@@ -111,7 +109,11 @@ public class MainActivity extends AppCompatActivity {
             super(fm);
         }
 
-        public void add(Fragment fragment, String title){
+        public void add(Fragment fragment, String title, String category){
+            Bundle args = new Bundle();
+            args.putString("category", category);
+            fragment.setArguments(args);
+
             fragments.add(fragment);
             fragmentsTitle.add(title);
         }

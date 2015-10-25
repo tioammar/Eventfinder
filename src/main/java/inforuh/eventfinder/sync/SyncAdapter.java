@@ -23,10 +23,12 @@ import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SyncRequest;
 import android.content.SyncResult;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -54,6 +56,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter implements Callback
     private static final int SYNC_INTERVAL = 60 * 180;
     private static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
     private static final String LOG_TAG = SyncAdapter.class.getSimpleName();
+
+    public static final String ACTION_GET_TIMELINE_FINISH =
+            "inforuh.eventfinder.action.ACTION_GET_TIMELINE_FINISH";
 
     public SyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -121,6 +126,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter implements Callback
     @Override
     public void onFailure(Request request, IOException e) {
 //        startSync(getContext());
+        LocalBroadcastManager.getInstance(getContext())
+                .sendBroadcast(new Intent(ACTION_GET_TIMELINE_FINISH));
         Log.v(LOG_TAG, e.getMessage());
     }
 
@@ -176,5 +183,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter implements Callback
                     evArray);
             Log.d(LOG_TAG, "Inserted: " + count);
         }
+        LocalBroadcastManager.getInstance(getContext())
+                .sendBroadcast(new Intent(ACTION_GET_TIMELINE_FINISH));
     }
 }

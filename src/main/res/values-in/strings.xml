@@ -17,6 +17,7 @@
 
 <resources>
     <string name="app_name">Eventfinder</string>
+    <string name="empty_text">Tidak Ada Event</string>
 
     <!-- Bulan -->
     <string name="april">April</string>
@@ -28,23 +29,22 @@
     <string name="june">Juni</string>
     <string name="march">Maret</string>
     <string name="may">Mei</string>
-    <string name="november">Nopember</string>
+    <string name="november">November</string>
     <string name="october">Oktober</string>
     <string name="september">September</string>
 
-    <!-- Tanggal-->
+    <!-- Tanggal -->
     <string name="one">1</string>
+    <string name="thirty_one">31</string>
+    <string name="three">3</string>
     <string name="twenty_one">21</string>
     <string name="twenty_three">23</string>
     <string name="twenty_two">22</string>
     <string name="two">2</string>
-    <string name="thirty_one">31</string>
-    <string name="three">3</string>
 
     <!-- Detail -->
-    <string name="ticket_price">Harga Tiket :</string>
     <string name="contact_title">Kontak :</string>
-    <string name="location_icon">Ikon Lokasi</string>
-    <string name="action_share">Bagikan</string>
     <string name="image_description">Foto Event</string>
+    <string name="action_share">Bagikan</string>
+    <string name="ticket_price">Harga Tiket :</string>
 </resources>

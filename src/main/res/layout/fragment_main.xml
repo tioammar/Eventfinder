@@ -19,8 +19,24 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/event_list"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/vertical_large"
+        android:text="@string/empty_text"
+        android:textSize="@dimen/text_large"
+        android:layout_gravity="center_horizontal|top" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/event_list"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

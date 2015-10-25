@@ -52,11 +52,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     private Cursor cursor;
     private Context context;
     private Listener listener;
+    private View emptyView;
 
-    public EventAdapter(Context context, Listener listener) {
+    public EventAdapter(Context context, Listener listener, View view) {
         // constructor
         this.context = context;
         this.listener = listener;
+        emptyView = view;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder
@@ -141,7 +143,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     }
 
     public void swapCursor(Cursor c){
+        if (c == null) return;
         cursor = c;
         notifyDataSetChanged();
+        emptyView.setVisibility(cursor.getCount() == 0 ? View.VISIBLE : View.GONE);
     }
 }
